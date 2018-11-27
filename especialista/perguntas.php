@@ -2,21 +2,16 @@
 	//incluir o menu
 include "menuEspecialista.php";
 
-
-if ( !isset( $_SESSION["especialista"]["id"] ) ) {
-		//direcionar para o index
-	header( "Location: indexEspecialista.php" );
- }
-
 	//incluir o arquivo para conectar no banco
 include "../config/conecta.php";
 
 ?>
 
 <div class="well container">
+
 	<h1>Listar Pergunta</h1>
 
-	
+	<br>
 
 	<div class="clearfix"></div>
 
@@ -60,7 +55,6 @@ cadastros:</p>";
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<td width="10%">ID</td>
 			<td>Pergunta</td>
 			<td>Categoria</td>
 			<td>Data</td>
@@ -82,40 +76,23 @@ cadastros:</p>";
 		$data = date('d/m/Y', strtotime($data));
 
 		echo "<tr>
-		<td>$idPergunta</td>
 		<td>$pergunta</td>
 		<td>$categoria</td>
 		<td>$data</td>
 		<td>$nome</td>
 		<td>
 		<a href='pergunta.php?idPergunta=$idPergunta'
-		class='btn btn-primary'>
+		class='btn btn-primary'>Editar Pergunta
 		<i class='glyphicon glyphicon-pencil'></i>
-		</a>
-
-		<a href='javascript:deletar($idPergunta)' 
-		class='btn btn-danger'>
-		<i class='glyphicon glyphicon-trash'></i>
 		</a>
 		
 		</td>
 		</tr>";
-
 	}
 
 	?>
 </table>
 
 </div>
-<script type="text/javascript">
-		//funcao para perguntar se quer deletar
-		function deletar(id) {
-			if ( confirm("Deseja mesmo excluir?") ) {
-				//enviar o id para uma página
-				location.href = "excluirPergunta.php?id="+id;
-			}
-		}
-	</script>
-
 </body>
 </html>

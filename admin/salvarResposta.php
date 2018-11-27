@@ -23,13 +23,12 @@ if ( $_POST ) {
 	} else {
 			//ATUALIZAR
 
-		$sql = "update resposta set resposta = ?, data = ?, idUsuario = ?, idPergunta = ? where id = ? limit 1";
+		$sql = "update resposta set resposta = ?, data = ?, idUsuario = ? where id = ? limit 1";
 		$consulta = $pdo->prepare( $sql );
 		$consulta->bindParam( 1, $resposta );
 		$consulta->bindParam( 2, $data );
 		$consulta->bindParam( 3, $idUsuario );
-		$consulta->bindParam( 4, $idPergunta );
-		$consulta->bindParam( 5, $id );
+		$consulta->bindParam( 4, $id );
 
 	}
 

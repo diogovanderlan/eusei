@@ -62,20 +62,42 @@ include "../config/conecta.php";
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
-                        <div class="stnt pull-left">                            
-                            <form action="pergunta.php" method="post" class="form">
-                                <button class="btn btn-danger">Faça uma Pergunta</button>
-                            </form>
-                        </div>
-                        <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+                              <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
+                            <div class="stnt pull-left">                            
+                                <form action="pergunta.php" method="post" class="form">
+                                    <button class="btn btn-danger">Faça uma Pergunta</button>
+                                </form>
+                            </div>
+                            <div class="env pull-left"><i class="fa fa-envelope"></i></div>
 
-                        <div class="avatar pull-left dropdown">
-                            <a data-toggle="dropdown" href="#"><img src="imagens/a.jpg" alt="" /></a> <b class="caret"></b>
-                            <ul class="dropdown-menu" role="menu">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="perfil.php">Meu Perfil</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-2" href="#">Caixa de Mensagem</a></li>
-                            </ul>
+                            <?php
+
+                            $per = $_SESSION["admin"]["id"];
+
+                            $sql = "select * from usuario where id = $per";
+                            $consulta = $pdo->prepare($sql);
+                            $consulta->execute();
+
+                            while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
+                              $id = $dados->id;
+                              $nome = $dados->nome; 
+                              $imagem = $dados->imagem;
+                              $email = $dados->email;
+                              $login = $dados->login;
+
+                              $imagem = $imagem . "p.jpg";
+                              $img = "<img src='../fotos/$imagem'";
+                              
+                          }
+
+                          ?>
+
+                          <div class="avatar pull-left dropdown">
+                            <a href="perfil.php">
+                                <?php
+                                echo" <img src='../fotos/$imagem' id='psy'>";                               
+                                ?>
+                            </a>
                         </div>                            
                         <div class="clearfix"></div>
                     </div>
@@ -91,7 +113,7 @@ include "../config/conecta.php";
                 <main>
                     <?php
                     if ( isset ($_GET["id"]) ) $idPergunta = trim ( $_GET["id"] );
-                    $sql2 = "select p.*, u.nome, c.categoria from pergunta p join usuario u on u.id = p.idUsuario join categoria c on c.id = p.idcategoria where idPergunta = ?";
+                    $sql2 = "select p.*, u.nome, c.categoria from pergunta p join usuario u on u.id = p.idUsuario join categoria c on c.id = p.idcategoria where idPergunta = ? ";
                     $consulta2 = $pdo->prepare($sql2);
                     $consulta2->bindParam(1, $idPergunta );
                     $consulta2->execute();
@@ -112,18 +134,18 @@ include "../config/conecta.php";
                                 </div>
                                 
                                 <div class="posttext pull-left" id="menu">
-                                 <p>Nome: <?=$nome;?></p>
-                                 <h1><?=$pergunta;?></h1> 
-                                 <p>Categoria: <?=$categoria;?></p>
-                                 <p>Data: <?=$data;?></p>
+                                   <p>Nome: <?=$nome;?></p>
+                                   <h1><?=$pergunta;?></h1> 
+                                   <p>Categoria: <?=$categoria;?></p>
+                                   <p>Data: <?=$data;?></p>
 
-                             </div>             
+                               </div>             
 
-                             <div class="clearfix"></div>
+                               <div class="clearfix"></div>
 
 
-                         </div>                              
-                         <div class="postinfobot">
+                           </div>                              
+                           <div class="postinfobot">
 
                             <div class="clearfix"></div>
 
@@ -138,7 +160,7 @@ include "../config/conecta.php";
                         <?php 
                         if ( isset ($_GET["id"]) ) $id = trim ( $_GET["id"] );
                         
-                        $sql1 = "select r.id, r.resposta, r.data, u.nome from resposta r join usuario u on u.id = r.idUsuario where idPergunta = ? ";
+                        $sql1 = "select r.id, r.resposta, r.data, u.nome from resposta r join usuario u on u.id = r.idUsuario where idPergunta = ?  and u.ativo = 'sim'";
                         $consulta1 = $pdo->prepare($sql1);
                         $consulta1->bindParam(1, $id);
                         $consulta1->execute();
@@ -162,25 +184,10 @@ include "../config/conecta.php";
                                     <div class="posttext pull-left" id="menu">
                                         <p>Usuario: <?=$nome;?></p>
                                         <h3><?=$resposta;?></h3>
-                                        <p>Data: <?=$data;?></p>
-
-                                      <?php
-                                                $sql = "select * from curtidas where idResposta = $idResposta";
-
-                                                $cont = $pdo->prepare($sql);
-
-                                                        //executar o sql
-                                                $cont->execute();
-
-                                                        //conta as linhas de resultado
-                                                $conta = $cont->rowCount();
-
-                                                ?>
-
-                                        <a href="curtir.php?id=<?=$idResposta;?>" class='btn btn-success' alt="curtir">Gostei <?=$conta;?></a>
-
+                                        <p>Data: <?=$data;?></p>             
+                                         
                                          <?php
-                                                $sql = "select * from descurtidas where idResposta = $idResposta";
+                                                $sql = "select * from curtidas where idResposta = $idResposta and curtida = 1";
 
                                                 $cont = $pdo->prepare($sql);
 
@@ -192,14 +199,27 @@ include "../config/conecta.php";
 
                                                 ?>
 
+                                        <a href="curtir.php?id=<?=$idResposta;?>" class='btn btn-success' alt="curtir">(<?=$conta;?>) Gostei </a>
 
-                                        <a href="descurtir.php?id=<?=$idResposta;?>" class='btn btn-danger' alt="descurtir">Não Gostei <?=$conta;?></a>   
+                                        <?php
+                                                $sql = "select * from curtidas where idResposta = $idResposta and curtida = 2";
+
+                                                $cont = $pdo->prepare($sql);
+
+                                                        //executar o sql
+                                                $cont->execute();
+
+                                                        //conta as linhas de resultado
+                                                $conta = $cont->rowCount();
+
+                                                ?>
+
+                                        <a href="curtir2.php?id=<?=$idResposta;?>" class='btn btn-danger' alt="descurtir"> (<?=$conta;?>) Não Gostei</a>   
 
                                         <a href='denResposta.php?id=<?=$idResposta;?>' class='btn btn-warning'>Denunciar</a>  
 
-
                                     </div>             
-
+                                    
 
                                     <div class="clearfix"></div>
                                 </div>                              
@@ -210,59 +230,146 @@ include "../config/conecta.php";
 
                         <?php } ?>
 
-
-
+                        
+                        
                     </main>
 
-                    <div class="post">
-                        <form name="formcadastro" method="post" action="salvarResposta.php" novalidate>              
+                    <div class="hidden">
+                        <form name="formcadastro" method="post" action="salvarResposta.php" novalidate>
+
+
+
+                            <label for="idPergunta">ID Pergunta</label>
                             <div class="controls">
-                                <div class="col-md-12">
-                                    <div class="control-group">
-                                        <label name="resposta"><strong> Responder</strong></label>
-                                        <div class="controls">
-                                            <textarea name="resposta" class="form-control" rows="5" value="<?=$resposta;?>"></textarea>
-                                        </div>
-                                        <br>
+                                <input type="text" readonly
+                                name="idPergunta" class="form-control"
+                                value="<?=$idPergunta;?>">
+                            </div>          
 
-                                        <button type="submit" class="btn btn-success">Salvar Resposta</button>
 
-                                    </div>
-                                </div>
+                            <div class="row">   
+                                <div class="col-md-6">
+                                    <label class="control-label">Usuário:</label>
+                                    <div class="controls">
+                                        <input type="text" name="idUsuario"
+                                        class="form-control input1" readonly
+                                        value="<?=$_SESSION["admin"]["id"];?>">
 
+                                        <input type="text" readonly class="form-control input2"
+                                        value="<?=$_SESSION["admin"]["nome"];?>">
+                                    </div> <!-- controls -->
+                                </div> <!-- col-md -->
                             </div>
-                        </form>
-                    </div>
 
-                </div>                  
+                            <div class="control-group">
+                                <label for="data">Data</label>
+                                <div class="controls">
+                                    <input type="text" 
+                                    name="data"
+                                    class="form-control" readonly
+                                    required value="<?=$data;?>"
+                                    data-validation-required-message="Preencha o dataCad"
+                                    data-mask="99/99/9999">
+                                </div>
+                            </div>         
+
+                        </div> 
+                        
+                        <div class="controls">
+                            <div class="col-md-11">
+                                <div class="control-group">
+                                    <label name="resposta"> resposta: </label>
+                                    <div class="controls">
+                                        <textarea name="resposta" class="form-control" rows="5" value="<?=$resposta;?>"></textarea>
+                                    </div>
+                                    <br>
+
+                                    <button type="submit" class="btn btn-success">Salvar Resposta</button>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>  
+                    </div>                                  
 
 
 
-                <br><br><br>
-                <div class="col-lg-4 col-md-4">
-                    <!--Categorias -->
+
+                    <br><br><br>
+                    <div class="col-lg-4 col-md-4">
+                        <!--Categorias -->
+                        <div class="sidebarblock">
+                            <h3>Categorias</h3>
+                            <?php 
+                            $sql = "select * from categoria order by categoria";
+                            $consulta = $pdo->prepare($sql);
+                            $consulta->execute();
+                            while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
+                             $id = $dados->id;
+                             $categoria = $dados->categoria;
+                             ?>
+
+
+                             <div class="blocktxt">
+                                <ul class="cats">
+                                    <li><a href="home2.php?idcategoria=<?=$id;?>"><?=$categoria;?> 
+                                    <span class="badge pull-right" id="nse"> 
+                                        <div class="postinfo pull-left">
+                                            <div class="comments">
+                                                <div class="commentbg">
+                                                    <?php
+
+                                                    $sql = "select * from pergunta where idcategoria = $id  ";
+
+                                                    $cont = $pdo->prepare($sql);
+
+                                                        //executar o sql
+                                                    $cont->execute();
+
+                                                        //conta as linhas de resultado
+                                                    $conta = $cont->rowCount();
+
+                                                    echo "<p> $conta </p>";
+
+                                                    ?>
+                                                    <div class="mark"></div>
+                                                </div>                                            
+                                            </div>                                                                           
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </span></a></li>
+
+
+                                </ul>
+                            </div>
+                        <?php } ?>
+                    </div>                        
+
+                    <!-- Noticias-->
                     <div class="sidebarblock">
-                        <h3>Categorias</h3>
-                        <?php 
-                        $sql = "select * from categoria order by categoria";
-                        $consulta = $pdo->prepare($sql);
-                        $consulta->execute();
-                        while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-                           $id = $dados->id;
-                           $categoria = $dados->categoria;
-                           ?>
 
+                        <h3>Os Melhores Do Mês</h3>
 
-                           <div class="blocktxt">
-                            <ul class="cats">
-                                <li><a href="home2.php?idcategoria=<?=$id;?>"><?=$categoria;?> 
-                                <span class="badge pull-right" id="nse"> 
-                                    <div class="postinfo pull-left">
+                        <div class="sidebarblock">
+                            <?php 
+                            $sql = "select * from usuario";
+                            $consulta = $pdo->prepare($sql);
+                            $consulta->execute();
+                            while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
+                             $id = $dados->id;
+                             $nome = $dados->nome;
+                             ?>
+                             <div class="divline"></div>
+                             <div class="blocktxt">
+                                <ul class="cats">
+                                    <li><a href="perfil2.php?id=<?=$id;?>"><?=$nome;?> <span class="badge pull-right"  id="nse">
+                                     <div class="postinfo pull-left">
                                         <div class="comments">
                                             <div class="commentbg">
                                                 <?php
 
-                                                $sql = "select * from pergunta where idcategoria = $id  ";
+                                                $sql = "select * from resposta where idusuario = $id  ";
 
                                                 $cont = $pdo->prepare($sql);
 
@@ -272,7 +379,7 @@ include "../config/conecta.php";
                                                         //conta as linhas de resultado
                                                 $conta = $cont->rowCount();
 
-                                                echo "<p> $conta </p>";
+                                                echo "<p> $conta Pts </p>";
 
                                                 ?>
                                                 <div class="mark"></div>
@@ -286,59 +393,10 @@ include "../config/conecta.php";
                             </ul>
                         </div>
                     <?php } ?>
-                </div>                        
-
-                <!-- Noticias-->
-                <div class="sidebarblock">
-
-                    <h3>Os Melhores Do Mês</h3>
-
-                    <div class="sidebarblock">
-                        <?php 
-                        $sql = "select * from usuario";
-                        $consulta = $pdo->prepare($sql);
-                        $consulta->execute();
-                        while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-                           $id = $dados->id;
-                           $nome = $dados->nome;
-                           ?>
-                           <div class="divline"></div>
-                           <div class="blocktxt">
-                            <ul class="cats">
-                                <li><a href="perfil2.php?id=<?=$id;?>"><?=$nome;?> <span class="badge pull-right"  id="nse">
-                                   <div class="postinfo pull-left">
-                                    <div class="comments">
-                                        <div class="commentbg">
-                                            <?php
-
-                                            $sql = "select * from resposta where idusuario = $id  ";
-
-                                            $cont = $pdo->prepare($sql);
-
-                                                        //executar o sql
-                                            $cont->execute();
-
-                                                        //conta as linhas de resultado
-                                            $conta = $cont->rowCount();
-
-                                            echo "<p> $conta Pts </p>";
-
-                                            ?>
-                                            <div class="mark"></div>
-                                        </div>                                            
-                                    </div>                                                                           
-                                </div>
-                                <div class="clearfix"></div>
-                            </span></a></li>
-
-
-                        </ul>
-                    </div>
-                <?php } ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 </section>

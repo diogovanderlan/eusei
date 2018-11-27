@@ -165,7 +165,7 @@
 			//verificar se executou corretamente
 			if ( $consulta->execute() ) {
 
-				echo "<script>alert('Registro Salvo');location.href='indexEspecialista.php';</script>";
+				echo "<script>alert('Registro Salvo');location.href='../especialista/home.php';</script>";
 
 			} else {
 

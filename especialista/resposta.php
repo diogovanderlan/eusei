@@ -28,21 +28,13 @@ $data = date("d/m/Y");
 
 <div class="container">
 	<div class="well">
-		<a href="resposta.php" class="btn btn-success pull-right">
-			<i class="glyphicon glyphicon-paste"></i>
-			Novo cadastro
-		</a>
-		<a href="listarResposta.php" class="btn btn-primary pull-right">
-			<i class="glyphicon glyphicon-list"></i>
-			Listar Resposta
-		</a>
 		<div class="clearfix"></div>
 		
 		<form name="formcadastro" method="post" action="salvarResposta.php" novalidate>
 
 			<h1>Resposta</h1>
 
-			
+			<div class="hidden">
 			<label for="id">ID</label>
 			<div class="controls">
 				<input type="text" readonly 
@@ -58,31 +50,17 @@ $data = date("d/m/Y");
 			</div>			
 
 
-			<div class="row" hiden>	
+			<div class="row">	
 				<div class="col-md-6">
 					<label class="control-label">Usuário:</label>
 					<div class="controls">
 						<input type="text" name="idUsuario"
 						class="form-control input1" readonly
 						value="<?=$_SESSION["especialista"]["id"];?>">
-						
-						<input type="text" readonly class="form-control input2"
-						value="<?=$_SESSION["especialista"]["nome"];?>">
 					</div> <!-- controls -->
 				</div> <!-- col-md -->
-			</div>
-
-			<div class="control-group">
-				<label for="data">Data</label>
-				<div class="controls">
-					<input type="text" 
-					name="data"
-					class="form-control" readonly
-					required value="<?=$data;?>"
-					data-validation-required-message="Preencha o dataCad"
-					data-mask="99/99/9999">
-				</div>
-			</div>		
+			</div>	
+		</div>
 
 			<main>                                     
 				<?php
@@ -116,26 +94,50 @@ $data = date("d/m/Y");
 						</div>
 						<div class="clearfix"></div>
 						</div><?php } ?>
-					</main>				
-	
+					</main>	
 
-			<div class="row">		 		
-				<div class="controls">
-					<div class="col-md-11">
-						<div class="control-group">
-							<label name="resposta"> resposta: </label>
-							<div class="controls">
-								<textarea name="resposta" class="form-control" rows="5" value="<?=$resposta;?>"></textarea>
+					<div class="row">
+						<div class="controls">
+							<div class="col-md-4">
+								<label for="data">Data: </label>
+								<input type="text" 
+								name="data" class="form-control input" readonly
+								required value="<?=$data;?>"
+								data-validation-required-message="Preencha o dataCad"
+								data-mask="99/99/9999">
 							</div>
-
-							<button type="submit" class="btn btn-success">Salvar Resposta</button>
-
-
 						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<label>Usuário: </label>
+								<input type="text" readonly class="form-control input"
+								value="<?=$_SESSION["especialista"]["nome"];?>">
+							</div>
+						</div>	
 					</div>
+					<br>			
+
+
+					<div class="row">		 		
+						<div class="controls">
+							<div class="col-md-11">
+								<div class="control-group">
+									<label name="resposta"> resposta: </label>
+									<div class="controls">
+										<textarea name="resposta" class="form-control" rows="5" value="<?=$resposta;?>"></textarea>
+									</div>
+									<br>
+
+									<button type="submit" class="btn btn-success">Salvar Resposta</button>
+
+
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>		 	
+					</div>
+
 				</div>
-				<div class="clearfix"></div>		 	
 			</div>
-			
-		</div>
-	</div>

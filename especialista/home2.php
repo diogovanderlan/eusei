@@ -53,7 +53,7 @@ include "../config/conecta.php";
                     <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2"></div>
                     <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
                         <div class="wrap">
-                           
+
                             <form action="formpesquisa" method="post" class="form">
                                 <div class="pull-left txt"><input type="text" class="form-control" placeholder="Buscar Pergunta"></div>
                                 <div class="pull-right"><button class="btn btn-default" type="button"><i class="fas fa-search"></i></button></div>
@@ -68,13 +68,34 @@ include "../config/conecta.php";
                             </form>
                         </div>
                         <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+                        <?php
 
-                        <div class="avatar pull-left dropdown">
-                          <a href="perfil.php">
-                                <?php
-                                echo" <img src='../fotos/$imagem' id='psy'>";                               
-                                ?>
-                            </a>
+                        $per = $_SESSION["especialista"]["id"];
+
+                        $sql = "select * from usuario where id = $per";
+                        $consulta = $pdo->prepare($sql);
+                        $consulta->execute();
+
+                        while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
+                          $id = $dados->id;
+                          $nome = $dados->nome; 
+                          $imagem = $dados->imagem;
+                          $email = $dados->email;
+                          $login = $dados->login;
+
+                          $imagem = $imagem . "p.jpg";
+                          $img = "<img src='../fotos/$imagem'";
+
+                      }
+
+                      ?>
+
+                      <div class="avatar pull-left dropdown">
+                        <a href="perfil.php">
+                            <?php
+                            echo" <img src='../fotos/$imagem' id='psy'>";                               
+                            ?>
+                        </a>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="perfil.php">Meu Perfil</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-2" href="#">Caixa de Mensagem</a></li>
@@ -88,8 +109,8 @@ include "../config/conecta.php";
 
 
     <section class="content">
-     <br>
-     <div class="container">
+       <br>
+       <div class="container">
         <div class="col-lg-8 col-md-8">
             <!-- POST -->
             <main>                                     
@@ -97,7 +118,7 @@ include "../config/conecta.php";
 
                 if ( isset ( $_GET["idcategoria"] ) ) $idcat = trim ( $_GET["idcategoria"] );
                                             //$sql = "select * from pergunta order by data desc";
-                $sql = "select p.*, u.nome, c.categoria from pergunta p join usuario u on (u.id = p.idusuario) join categoria c on (c.id = p.idcategoria) where p.idcategoria = $idcat";
+                $sql = "select p.*, u.nome, c.categoria from pergunta p join usuario u on (u.id = p.idusuario) join categoria c on (c.id = p.idcategoria) where p.idcategoria  and u.ativo = 'sim' = $idcat";
                 $consulta = $pdo->prepare($sql);
                 $consulta->execute(); 
 
@@ -116,11 +137,11 @@ include "../config/conecta.php";
                             </div>
                             
                             <div class="posttext pull-left" id="menu">
-                               <p>Usuario: <?=$nome;?></p>
-                               <h3><?=$pergunta;?></h3>
-                               <p>Categoria: <?=$categoria;?></p>
-                               <p>Data: <?=$data;?> </p>
-                               <a href="resposta.php?id=<?=$id;?>" class="btn btn-success">
+                             <p>Usuario: <?=$nome;?></p>
+                             <h3><?=$pergunta;?></h3>
+                             <p>Categoria: <?=$categoria;?></p>
+                             <p>Data: <?=$data;?> </p>
+                             <a href="resposta.php?id=<?=$id;?>" class="btn btn-success">
                                 Responder
                             </a>
                             <a href="respostas.php?id=<?=$id;?>" class="btn btn-success">
@@ -172,12 +193,12 @@ include "../config/conecta.php";
                     $consulta = $pdo->prepare($sql);
                     $consulta->execute();
                     while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-                       $id = $dados->id;
-                       $categoria = $dados->categoria;
-                       ?>
+                     $id = $dados->id;
+                     $categoria = $dados->categoria;
+                     ?>
 
-                       
-                       <div class="blocktxt">
+
+                     <div class="blocktxt">
                         <ul class="cats">
                             <li><a href="home2.php?idcategoria=<?=$id;?>"><?=$categoria;?> 
                             <span class="badge pull-right" id="nse"> 
@@ -219,18 +240,18 @@ include "../config/conecta.php";
 
                 <div class="sidebarblock">
                     <?php 
-                    $sql = "select * from usuario";
+                    $sql = "select u.*, r.idUsuario, count(r.resposta) from usuario u join resposta r on (r.idUsuario = u.id) where r.idUsuario = u.id group by u.nome order by r.idUsuario ASC";
                     $consulta = $pdo->prepare($sql);
                     $consulta->execute();
                     while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-                       $id = $dados->id;
-                       $nome = $dados->nome;
-                       ?>
-                       <div class="divline"></div>
-                       <div class="blocktxt">
+                     $id = $dados->id;
+                     $nome = $dados->nome;
+                     ?>
+                     <div class="divline"></div>
+                     <div class="blocktxt">
                         <ul class="cats">
                             <li><a href="perfil2.php?id=<?=$id;?>"><?=$nome;?> <span class="badge pull-right" id="nse">
-                               <div class="postinfo pull-left">
+                             <div class="postinfo pull-left">
                                 <div class="comments">
                                     <div class="commentbg">
                                         <?php

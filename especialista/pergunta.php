@@ -1,12 +1,6 @@
 <?php
 
 include "menuEspecialista.php";
-
-if ( !isset( $_SESSION["especialista"]["id"] ) ) {
-		//direcionar para o index
-	header( "Location: index.php" );
-}
-
 	//incluir o arquivo para conectar no banco
 include "../config/conecta.php";
 
@@ -40,64 +34,73 @@ $data = date("d/m/Y");
 
 <div class="container">
 	<div class="well">
-		<!-- <a href="pergunta.php" class="btn btn-success pull-right">
-			<i class="glyphicon glyphicon-paste"></i>
-			Novo cadastro
-		</a>
-		<a href="listarPergunta.php" class="btn btn-primary pull-right">
-			<i class="glyphicon glyphicon-list"></i>
-			Listar Pergunta
-		</a> -->
 		<div class="clearfix"></div>
 		
 		<form name="formcadastro" method="post" action="salvarPergunta.php" novalidate>
 
 			<h1>Pergunta</h1>
-
-		<div class="hidden">
+			<div class="hidden">
 			<label for="idPergunta">ID</label>
 			<div class="controls">
 				<input type="text" readonly 
 				name="idPergunta" class="form-control"
 				value="<?=$idPergunta;?>">
-			</div>				
+			</div>			
 
 			<div class="row">	
 				<div class="col-md-6">
-					<label class="control-label">Usuário:</label>
+					<label name="idUsuario">Usuário: </label>
 					<div class="controls">
 						<input type="text" name="idusuario"
 						class="form-control input1" readonly
 						value="<?=$_SESSION["especialista"]["id"];?>">
-						
-						<input type="text" readonly class="form-control input2"
-						value="<?=$_SESSION["especialista"]["nome"];?>">
 					</div> <!-- controls -->
 				</div> <!-- col-md -->
 			</div>
-</div>
+		</div>
+
+			<div class="row">
+						<div class="controls">
+							<div class="col-md-4">
+								<label for="data">Data: </label>
+								<input type="text" 
+								name="data" class="form-control input" readonly
+								required value="<?=$data;?>"
+								data-validation-required-message="Preencha o dataCad"
+								data-mask="99/99/9999">
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-4">
+								<label>Usuário: </label>
+								<input type="text" readonly class="form-control input"
+								value="<?=$_SESSION["especialista"]["nome"];?>">
+							</div>
+						</div>	
+					</div>
+					<br>			
+
+
+
 			<div class="row">		 		
 				<div class="controls">
 					<div class="col-md-11">
 						<div class="control-group">
-							<label name="pergunta"><h3> Pergunta:</h3> </label>
+							<label for="pergunta">
+							Pergunta:</label>
 							<div class="controls">
-								<textarea name="pergunta" class="form-control" rows="5" value="<?=$pergunta;?> + ?"></textarea>
-							</div>		 		
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="control-group">
-							<label class="control-label">Data</label>
-							<div class="controls">
-								<input type="text" name="data" 
-								id="data" 
-								class="form-control" readonly
-								value="<?=$data;?>">
+								<input type="text" 
+								name="pergunta"
+								class="form-control"
+								required
+								data-validation-required-message="Preencha a Pergunta"
+								value="<?=$pergunta;?>">
 							</div>
-						</div> 
-					</div> 
+						</div>
+
+					</div>
 
 
 					<div class="col-md-4">
@@ -130,6 +133,7 @@ $data = date("d/m/Y");
 						</div>
 					</div>
 					<div class="clearfix"></div>
+					<br>
 					<button type="submit" class="btn btn-success">Salvar Pergunta</button>
 
 					

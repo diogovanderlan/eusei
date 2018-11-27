@@ -1,28 +1,28 @@
 
 body {
     padding: 80px;
-	background: url(../admin/imagens/fundo2.jpg) !important;
+    background: url(../admin/imagens/fundo2.jpg) !important;
     background-repeat: no-repeat;
-	border-radius: 5px;
+    border-radius: 5px;
 }
 
 #login {
-	width: 400px;
+    width: 400px;
     height: 400px;
-	margin: 100px auto;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	background-color: rgba(0, 0, 255, 0.5) !important;
-}
-.rel {
-    text-align: center;
+    margin: 100px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 255, 0.5) !important;
 }
 
 .control-label {
     color: #fff;
 }
 
+#usu {
+    color: #000;
+}
 main h1 {
     color: black;
     text-align: left;
@@ -36,15 +36,21 @@ main h1 {
 
 
 }
+
+#bot {
+    width: 420px;
+    height: 65px;
+    margin: 10px;
+    font-size: 30px;
+    border: 1px solid;
+    float: left;  
+    text-align: center;  
+}
+
 .table {
-    background: #5BA4F2;
     color: black;
 
 } 
-.table striped {
-    background: #0080FF;    
-}
-
 .color h2, h5 {
     padding-top: 100px;
     color: black;
@@ -66,29 +72,29 @@ h1, h2 {
 }
 
 a { 
-	color: #666; 
+    color: #666; 
 }
 
 a:hover { 
-	color: #333;
-	 }
+    color: #333;
+     }
 
 h3 {
     color: #000;
 }
 
 #mascara {
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.8);
-	position: fixed;
-	z-index: 10000;
-	float: left;
-	top: 0px;
-	color: #FFF;
-	text-align: center;
-	padding-top:25%; 
-	display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    z-index: 10000;
+    float: left;
+    top: 0px;
+    color: #FFF;
+    text-align: center;
+    padding-top:25%; 
+    display: none;
 }
 
 .navbar-brand img {
@@ -96,13 +102,13 @@ h3 {
 }
 
 .input1 {
-	width: 15%;
-	float: left;
+    width: 15%;
+    float: left;
 }
 
 .input2 {
-	width: 80%;
-	float: right;
+    width: 80%;
+    float: right;
 
 }
 
@@ -121,7 +127,7 @@ h3 {
     background: blue;
 }
 
-.perfil {
+.perfil{
     width: 450px;
     height: 600px;
     margin: 100px auto;
@@ -129,20 +135,22 @@ h3 {
     margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    background-color: rgba(0, 0, 255, 0.5) !important;
+    background-color: rgba(0, 0, 255, 0.6) !important;
 
 }
 
 .perfil h1 {
-	font size:20px;
-	color: #fff;
-	font: Arial Black;
+    font size:20px;
+    color: #fff;
+    font: Arial Black;
 }
 
 .perfil p {
-	font-size: 30px;
+    font-size: 30px;
     color: #fff; 
 }
+
+
 
 #psy {
     width: 50px;
@@ -159,8 +167,8 @@ h3 {
 }
 
 .menu{
-	padding: 10px;
-	background: #0080FF;
+    padding: 10px;
+    background: #0080FF;
 }
 
 #menu p{
@@ -173,15 +181,15 @@ h3 {
 }
 
 #menu ul li {
-	display: inline;
+    display: inline;
 
 }
 
 #menu ul li a {
-	color: #000;
-	padding: 10px;
-	font: 20px;
-	
+    color: #000;
+    padding: 10px;
+    font: 20px;
+    
 }
 
 
@@ -189,6 +197,11 @@ h3 {
     background: #fff;
     color: #000;
     font-size: 15px;
+
+}
+
+.rel {
+    text-align: center;
 
 }
 
@@ -296,7 +309,7 @@ ul.socialicons li a:hover {
 
 }
 #sair {
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
 
@@ -363,72 +376,6 @@ ul.socialicons li a:hover {
 }
 
 
-.avatar .green {
-    background-color: #80d3ab;
-}
-
-.avatar .red {
-    background-color: #f27777;
-}
-
-.avatar .yellow {
-    background-color: #ecd346;
-}
-
-
-
-/*-----------------------------------------------------------------*/
-/*--- Content ---*/
-
-/*--- Pagination ---*/
-.paginationforum li {
-    list-style: none;
-    display: inline-block;
-    margin-left: 20px;
-}
-
-.paginationforum li a {
-    min-width: 24px;
-    height: 24px;
-    font-size: 14px;
-    font-family: 'Open Sans Semibold', sans-serif;
-    color: #ffffff;
-    background-color: #cfd5d7;
-    border-radius: 2px;
-    display: block;
-    padding: 0 8px;
-    line-height: 24px;
-}
-
-.paginationforum li a.active,
-.paginationforum li a:hover,
-.paginationforum li a:focus,
-.paginationforum li a:active {
-    color: #363838;
-    background-color: #ffffff;
-    box-shadow: 0 1px 2px #c9cccd;
-    font-family: 'Open Sans Bold', sans-serif;
-    text-decoration: none;
-
-}
-
-
-
-.paginationforum {
-    margin: 19px auto;
-    padding: 0;
-}
-
-.prevnext {
-    font-size: 26px;
-    color: #cfd5d7;
-    margin-top: 11px;
-    display: block;
-}
-
-.prevnext.last {
-    margin-left: 20px;
-}
 
 
 /*--- Sidebar ---*/

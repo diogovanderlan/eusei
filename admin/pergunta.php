@@ -53,22 +53,23 @@ $data = date("d/m/Y");
 		<form name="formcadastro" method="post" action="salvarPergunta.php" novalidate>
 
 			<h1>Pergunta</h1>
-
 			
 			<label for="idPergunta">ID</label>
 			<div class="controls">
 				<input type="text" readonly 
 				name="idPergunta" class="form-control"
 				value="<?=$idPergunta;?>">
-			</div>				
+			</div>			
 
 			<div class="row">	
 				<div class="col-md-6">
-					<label class="control-label">Usuário:</label>
+					<label name="idUsuario">Usuário: </label>
 					<div class="controls">
 						<input type="text" name="idusuario"
 						class="form-control input1" readonly
 						value="<?=$_SESSION["admin"]["id"];?>">
+
+
 						
 						<input type="text" readonly class="form-control input2"
 						value="<?=$_SESSION["admin"]["nome"];?>">
@@ -80,11 +81,18 @@ $data = date("d/m/Y");
 				<div class="controls">
 					<div class="col-md-11">
 						<div class="control-group">
-							<label name="pergunta"> pergunta: </label>
+							<label for="pergunta">
+							Pergunta:</label>
 							<div class="controls">
-								<textarea name="pergunta" class="form-control" rows="5" value="<?=$pergunta;?> + ?"></textarea>
-							</div>		 		
+								<input type="text" 
+								name="pergunta"
+								class="form-control"
+								required
+								data-validation-required-message="Preencha a Pergunta"
+								value="<?=$pergunta;?>">
+							</div>
 						</div>
+
 					</div>
 
 					<div class="col-md-4">

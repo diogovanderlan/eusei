@@ -44,7 +44,7 @@ if ( isset ( $_GET["palavra"] ) ) $palavra = trim ( $_GET["palavra"] );
 $palavra = "%$palavra%";
 
 			//buscar da resposta
-$sql = "select d.*, r.resposta, u.nome from denunciarresposta d join resposta r on (r.id = d.idResposta) join usuario u on (u.id = d.idUsuario) where titulo like ? order by titulo";
+$sql = "select d.*, r.*, u.nome from denunciarresposta d join resposta r on (r.id = d.idResposta) join usuario u on (u.id = d.idUsuario) where titulo like ? order by u.nome";
 $consulta = $pdo->prepare($sql);
 $consulta->bindParam(1, $palavra);
 			//executar o sql
@@ -61,7 +61,9 @@ cadastros:</p>";
 <table class="table table-bordered ">
 	<thead>
 		<tr>
-			<td width="10%">ID</td>
+			<td width="10%">ID</td> 
+			<td>Denunciado </td>
+			
 			<td>Titulo</td>
 			<td>Descrição</td>
 			<td>Resposta</td>
@@ -76,6 +78,8 @@ cadastros:</p>";
 
 				//separar os dados do banco de dados
 		$id = $dados->id;
+		$idUsuario = $dados->idUsuario;
+		$idResposta = $dados->idResposta;
 		$titulo = $dados->titulo;
 		$descricao = $dados->descricao;
 		$data = $dados->data;
@@ -86,18 +90,20 @@ cadastros:</p>";
 
 		echo "<tr>
 		<td>$id</td>
+		<td>$idUsuario</td>
+		
 		<td>$titulo</td>
 		<td>$descricao</td>
 		<td>$resposta</td>
 		<td>$nome</td>
 		<td>$data</td>
 		<td>
-		<a href='home.php?id=$id'
+		<a href='denunciaUsuario.php?id=$idUsuario'
 		class='btn btn-success'>
 		<i class='glyphicon glyphicon-ok'></i>
 		</a>
 
-		<a href='javascript:deletar($id)' 
+		<a href='javascript:deletar($idResposta)' 
 		class='btn btn-danger'>
 		<i class='glyphicon glyphicon-remove'></i>
 		</a>
@@ -113,10 +119,10 @@ cadastros:</p>";
 </div>
 <script type="text/javascript">
 		//funcao para perguntar se quer deletar
-		function deletar(id) {
+		function deletar(idResposta) {
 			if ( confirm("Deseja mesmo excluir?") ) {
 				//enviar o id para uma página
-				location.href = "excluirDenRes.php?id="+id;
+				location.href = "excluirDenRes.php?id="+idResposta;
 			}
 		}
 	</script>

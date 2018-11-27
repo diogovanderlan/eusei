@@ -63,7 +63,7 @@ $data = date("d/m/Y");
 				</div> <!-- col-md -->
 			</div>
 
-			<main>                                     
+			<main>                                    
 				<?php
                                             //$sql = "select * from pergunta order by data desc";
 				$sql = "select p.*, u.nome, c.categoria from pergunta p join usuario u on (u.id = p.idusuario) join categoria c on (c.id = p.idcategoria) where p.idPergunta = $idPergunta";
@@ -85,7 +85,7 @@ $data = date("d/m/Y");
 							</div>
 
 							<div class="posttext pull-left" id="menu">
-								<p><strong>Usuário:</strong> <?=$nome;?></p>
+								<p><strong>Quem fez a Pergunta:</strong> <?=$nome;?></p>
 								<h3><?=$pergunta;?></h3>
 								<p><strong>Categoria:</strong> <?=$categoria;?></p>
 								<p><strong>Data:</strong> <?=$data;?> </p>

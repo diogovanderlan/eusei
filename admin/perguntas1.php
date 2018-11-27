@@ -1,12 +1,6 @@
 <?php
 	//incluir o menu
-include "menuUsuario.php";
-
-
-if ( !isset( $_SESSION["usuario"]["id"] ) ) {
-		//direcionar para o index
-	header( "Location: index.php" );
-}
+include "menu.php";
 
 	//incluir o arquivo para conectar no banco
 include "../config/conecta.php";

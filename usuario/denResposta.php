@@ -77,9 +77,9 @@ $data = date("d/m/Y");
                                 </div>
 
                                 <div class="posttext pull-left" id="menu">
-                                    <p>Usuario: <?=$nome;?></p>
-                                    <h3><?=$resposta;?></h3>
-                                    <p>Data: <?=$data;?></p> 
+                                    <p><strong>Quem Denúnciou:</strong> <?=$nome;?></p>
+                                    <h3>Resposta: <strong><?=$resposta;?></strong></h3>
+                                    <p><strong>Data:</strong> <?=$data;?></p> 
 
 
                                 </div>             

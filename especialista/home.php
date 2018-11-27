@@ -125,9 +125,8 @@ include "../config/conecta.php";
                     <!-- POST -->
                     <main>                                     
                         <?php 
-
                                             //$sql = "select * from pergunta order by data desc";
-                        $sql = "select p.idPergunta, p.pergunta, p.data, u.nome, c.categoria from pergunta p join categoria c on c.id = p.idcategoria join usuario u on u.id = p.idUsuario order by data desc";
+                        $sql = "select p.idPergunta, p.pergunta, p.data, u.nome, c.categoria from pergunta p join categoria c on c.id = p.idcategoria join usuario u on u.id = p.idUsuario  and u.ativo = 'sim' order by data desc";
                         $consulta = $pdo->prepare($sql);
                         $consulta->execute(); 
 
@@ -250,7 +249,7 @@ include "../config/conecta.php";
 
                         <div class="sidebarblock">
                             <?php 
-                            $sql = "select * from usuario";
+                            $sql = "select u.*, r.idUsuario, count(r.resposta) from usuario u join resposta r on (r.idUsuario = u.id) where r.idUsuario = u.id group by u.nome order by r.idUsuario ASC";
                             $consulta = $pdo->prepare($sql);
                             $consulta->execute();
                             while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {

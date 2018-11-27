@@ -12,7 +12,7 @@ if ( isset ( $_GET["id"] ) ) {
 if ( empty($dados->id) ) {
 		//excluir
 
-	$sql = "delete from denunciarresposta
+	$sql = "delete cascade from denunciarresposta
 	where id = ? limit 1";
 	$consulta = $pdo->prepare($sql);
 	$consulta->bindParam(1, $id);

@@ -1,22 +1,22 @@
 <?php
   //iniciar a sessao
-  session_start();
+session_start();
 
- if ( !isset( $_SESSION["especialista"]["id"] ) ) {
+if ( !isset( $_SESSION["especialista"]["id"] ) ) {
         //direcionar para o index
-        header( "Location: home.php" );
-    }
+  header( "Location: home.php" );
+}
 
   //incluir o arquivo para conectar no banco
-  include "../config/conecta.php";
+include "../config/conecta.php";
 
   //funcao para formatar datas 
-  function formatardata($data) {
+function formatardata($data) {
     // 29/09/2017 -> 2017-09-29
-    $data = explode( "/", $data );
-    $data = $data[2]."-".$data[1]."-".$data[0];
-    return $data;
-  }
+  $data = explode( "/", $data );
+  $data = $data[2]."-".$data[1]."-".$data[0];
+  return $data;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,7 @@
   href="../css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" 
   href="../css/admin.css">
- 
+
 
   <link rel="stylesheet" type="text/css" href="../css/summernote.css">
   <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css">
@@ -63,12 +63,12 @@
 
 
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-   
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
-      data-target="#menu" aria-expanded="false">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+        data-target="#menu" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -80,16 +80,28 @@
     <div class="collapse navbar-collapse" id="menu">
       <ul class="nav navbar-nav navbar-right">
       </li>
-      <li><a href="especialista.php">Colabore </a></li>
-        <li><a href="perguntas.php">Minhas Perguntas </a></li>
+
+      <li>
+        <a href="especialista.php">Colabore </a>
+      </li>
+
+      <li>
+        <a href="perguntas.php">Minhas Perguntas </a>
+      </li>
+
         <li>
-          <a href="../admin/sairUsuario.php">
+        <a href="mRespostas.php">Minhas Respostas </a>
+      </li>
+
+      <li>
+        <a href="../admin/sairUsuario.php" id="sair">
           Olá <?php echo $_SESSION["especialista"]["login"];?>
-          - Sair</a>
-        </li>
-      </ul>
-    </div>
+        - Sair</a>
+      </li>
+
+    </ul>
   </div>
+</div>
 </nav>
 
 

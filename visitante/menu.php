@@ -1,10 +1,10 @@
 <?php
-	//iniciar a sessao
-	//session_start();
+  //iniciar a sessao
+  //session_start();
 
-	
-	//incluir o arquivo para conectar no banco
-	include "../config/conecta.php";
+  
+  //incluir o arquivo para conectar no banco
+  include "../config/conecta.php";
 
   //funcao para formatar datas 
   function formatardata($data) {
@@ -17,32 +17,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Eu sei</title>
-	<meta charset="utf-8">
+  <title>Eu sei</title>
+  <meta charset="utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" type="text/css" 
-	href="../css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" 
-	href="../css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" 
-	href="../css/admin.css">
+  <link rel="stylesheet" type="text/css" 
+  href="../css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" 
+  href="../css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" 
+  href="../css/admin.css">
  
 
   <link rel="stylesheet" type="text/css" href="../css/summernote.css">
   <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css">
 
-	<script type="text/javascript"
-	src="../js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript"
-	src="../js/bootstrap.min.js"></script>
-	<script type="text/javascript"
-	src="../js/bootstrap-inputmask.min.js"></script>
-	<script type="text/javascript"
-	src="../js/jqBootstrapValidation.js"></script>
-	<script type="text/javascript"
-	src="../js/jquery.maskMoney.min.js"></script>
+  <script type="text/javascript"
+  src="../js/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript"
+  src="../js/bootstrap.min.js"></script>
+  <script type="text/javascript"
+  src="../js/bootstrap-inputmask.min.js"></script>
+  <script type="text/javascript"
+  src="../js/jqBootstrapValidation.js"></script>
+  <script type="text/javascript"
+  src="../js/jquery.maskMoney.min.js"></script>
 
   <script type="text/javascript" src="../js/summernote.min.js"></script>
   <script type="text/javascript" src="../lang/summernote-pt-BR.js"></script>
@@ -50,12 +50,12 @@
   <script defer src="../css/font/all.js"></script>
   <script type="text/javascript" src="../css/pooper.min.js"></script>
 
-	<script>
-  	$(function () { 
+  <script>
+    $(function () { 
       //validação dos campos
-  		$("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); 
-  	} );
-	</script>
+      $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); 
+    } );
+  </script>
 </head>
 <body>
 
@@ -80,6 +80,8 @@
 
     <div class="collapse navbar-collapse darck navbar-right" id="menu" style="color: #fff;" >
       <ul class="nav nav-pills">
+      
+      <li ><a href="mailto:euseiforum@gmail.com">Entre em contato</a></li>
         <li><a href="#"><i class="glyphicon glyphicon-home"></i></a></li>
         <li ><a href="../especialista/usuarioEspecialista.php">Torne-se um Especialista</a></li>
         <li class="dropdown">

@@ -18,6 +18,6 @@ if ( $consulta->execute() ) {
 	echo "<script>location.href='listarUsuario.php';</script>";
 } else {
 		//deu erro avisar
-	echo "<script>alert('Este registro nao pode ser excluido! Contem Registros Salvos');history.back();</script>";
+	echo "<script>alert('Erro ao excluir registro!');history.back();</script>";
 }
 

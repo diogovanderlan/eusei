@@ -67,15 +67,6 @@ include "../config/conecta.php";
 		</main> 
 
 	</div>
-	<script type="text/javascript">
-		//funcao para perguntar se quer deletar
-		function deletar(id) {
-			if ( confirm("Deseja mesmo excluir?") ) {
-				//enviar o id para uma página
-				location.href = "excluirPergunta.php?id="+id;
-			}
-		}
-	</script>
 
 </body>
 </html>

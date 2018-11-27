@@ -37,10 +37,20 @@ include "../config/conecta.php";
 
 
 			?>
-			<?php echo" <img src='../fotos/$imagem' id='fto'>"; ?>
+
+			 <?php echo" <img src='../fotos/$imagem' id='fto'>"; ?>
 			<p>Nome:  <?=$nome;?></p>
 			<p>Email: <?=$email;?></p>
 			<p>Login: <?=$login;?></p>	
+
+			<?php 
+			echo "
+			<a href='perguntas1.php?id=$id'
+			class='btn btn-primary'>
+			<i class='glyphicon glyphicon-eye-open'></i>
+			Ver Perguntas
+			</a>";
+			?>	
 			
 		</div>
 	</div>

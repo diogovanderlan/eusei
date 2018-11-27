@@ -128,7 +128,7 @@ include "../config/conecta.php";
                         <?php 
 
                                             //$sql = "select * from pergunta order by data desc";
-                        $sql = "select p.idPergunta, p.pergunta, p.data, u.nome, c.categoria from pergunta p join categoria c on c.id = p.idcategoria join usuario u on u.id = p.idUsuario order by data desc";
+                        $sql = "select p.idPergunta, p.pergunta, p.data, u.nome, c.categoria from pergunta p join categoria c on c.id = p.idcategoria join usuario u on u.id = p.idUsuario  and u.ativo = 'sim' order by data desc";
                         $consulta = $pdo->prepare($sql);
                         $consulta->execute(); 
 
@@ -148,10 +148,10 @@ include "../config/conecta.php";
                                     </div>
                                     
                                     <div class="posttext pull-left" id="menu">
-                                     <p>Usuario: <?=$nome;?></p>
-                                     <h3><?=$pergunta;?></h3>
-                                     <p>Categoria: <?=$categoria;?></p>
-                                     <p>Data: <?=$data;?></p>
+                                     <p><strong>Quem Perguntou:</strong> <?=$nome;?></p>
+                                     <h3>Pergunta: <strong><?=$pergunta;?></strong></h3>
+                                     <p><strong>Categoria:</strong> <?=$categoria;?></p>
+                                     <p><strong>Data: </strong><?=$data;?></p>
                                      <a href="resposta.php?id=<?=$id;?>" class="btn btn-success">
                                         Responder
                                     </a>
@@ -198,7 +198,7 @@ include "../config/conecta.php";
                     <div class="col-lg-4 col-md-4">
                         <!--Categorias -->
                         <div class="sidebarblock">
-                            <h3>Categorias</h3>
+                            <h3><strong>Categorias</strong></h3>
                             <?php 
                             $sql = "select * from categoria order by categoria";
                             $consulta = $pdo->prepare($sql);
@@ -247,19 +247,17 @@ include "../config/conecta.php";
                     <!-- Noticias-->
                     <div class="sidebarblock">
 
-                        <h3>Os Melhores Do Mês</h3>
+                        <h3><strong>Os Melhores Do Mês</strong></h3>
 
                         <div class="sidebarblock">
                             <?php 
-                            $sql = "select * from usuario";
+                             $sql = "select u.*, r.idUsuario, count(r.resposta) from usuario u join resposta r on (r.idUsuario = u.id) where r.idUsuario = u.id group by u.nome order by r.idUsuario ASC";
                             $consulta = $pdo->prepare($sql);
                             $consulta->execute();
                             while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-                             $id = $dados->id;
-                             $nome = $dados->nome
-                           
-                            
-                             ?>
+                               $id = $dados->id;
+                               $nome = $dados->nome;
+                               ?>
                              <div class="divline"></div>
                              <div class="blocktxt">
                                 <ul class="cats">

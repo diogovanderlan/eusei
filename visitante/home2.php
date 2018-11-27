@@ -37,7 +37,7 @@ include "../config/conecta.php";
     </head> 
     <body>  
         <div class="banner">
-            <img src="imagens/logo.png" />            
+            <img src="../admin/imagens/logo.png" />            
         </div>
         <!-- //Slider -->
 
@@ -47,30 +47,17 @@ include "../config/conecta.php";
                     <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2"></div>
                     <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
                         <div class="wrap">
-                           
-                            <form action="formpesquisa" method="post" class="form">
-                                <div class="pull-left txt"><input type="text" class="form-control" placeholder="Buscar Pergunta"></div>
-                                <div class="pull-right"><button class="btn btn-default" type="button"><i class="fas fa-search"></i></button></div>
-                                <div class="clearfix"></div>
-                            </form>
+                          
                         </div>
                     </div>
                     <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
                         <div class="stnt pull-left">                            
-                            <form action="pergunta.php" method="post" class="form">
+                            <form action="bVindo.php" method="post" class="form">
                                 <button class="btn btn-danger">Faça uma Pergunta</button>
                             </form>
-                        </div>
-                        <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+                        </div>  
 
                         <div class="avatar pull-left dropdown">
-                           <a href="perfil.php">
-                            <img src="imagens/a.jpg" class="img-thumbnail" alt="" />
-                        </a> <b class="caret"></b>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="perfil.php">Meu Perfil</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-2" href="#">Caixa de Mensagem</a></li>
-                        </ul>
                     </div>                            
                     <div class="clearfix"></div>
                 </div>
@@ -112,13 +99,13 @@ include "../config/conecta.php";
                                 <h3><?=$pergunta;?></h3>
                                 <p><strong>Categoria:</strong> <?=$categoria;?></p>
                                 <p><strong>Data:</strong> <?=$data;?> </p>
-                               <a href="resposta.php?id=<?=$id;?>" class="btn btn-success">
+                               <a href="bVindo.php" class="btn btn-success">
                                 Responder
                             </a>
                             <a href="respostas.php?id=<?=$id;?>" class="btn btn-success">
                                 Ver Respostas
                             </a>
-                            <a href="denPergunta.php?id=<?=$id;?>" class="btn btn-warning">
+                            <a href="bVindo.php" class="btn btn-warning">
                                 Denunciar
                             </a>
                         </div>
@@ -211,7 +198,7 @@ include "../config/conecta.php";
 
                 <div class="sidebarblock">
                     <?php 
-                    $sql = "select * from usuario";
+                     $sql = "select u.*, r.idUsuario, count(r.resposta) from usuario u join resposta r on (r.idUsuario = u.id) where r.idUsuario = u.id group by u.nome order by r.idUsuario ASC";
                     $consulta = $pdo->prepare($sql);
                     $consulta->execute();
                     while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {

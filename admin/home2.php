@@ -62,27 +62,47 @@ include "../config/conecta.php";
                         </div>
                     </div>
                     <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
-                        <div class="stnt pull-left">                            
-                            <form action="pergunta.php" method="post" class="form">
-                                <button class="btn btn-danger">Faça uma Pergunta</button>
-                            </form>
-                        </div>
-                        <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+                            <div class="stnt pull-left">                            
+                                <form action="pergunta.php" method="post" class="form">
+                                    <button class="btn btn-danger">Faça uma Pergunta</button>
+                                </form>
+                            </div>
+                            <div class="env pull-left"><i class="fa fa-envelope"></i></div>
 
-                        <div class="avatar pull-left dropdown">
-                           <a href="perfil.php">
-                            <img src="imagens/a.jpg" class="img-thumbnail" alt="" />
-                        </a> <b class="caret"></b>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="perfil.php">Meu Perfil</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-2" href="#">Caixa de Mensagem</a></li>
-                        </ul>
-                    </div>                            
-                    <div class="clearfix"></div>
+                            <?php
+
+                            $per = $_SESSION["admin"]["id"];
+
+                            $sql = "select * from usuario where id = $per";
+                            $consulta = $pdo->prepare($sql);
+                            $consulta->execute();
+
+                            while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
+                              $id = $dados->id;
+                              $nome = $dados->nome; 
+                              $imagem = $dados->imagem;
+                              $email = $dados->email;
+                              $login = $dados->login;
+
+                              $imagem = $imagem . "p.jpg";
+                              $img = "<img src='../fotos/$imagem'";
+                              
+                          }
+
+                          ?>
+
+                          <div class="avatar pull-left dropdown">
+                            <a href="perfil.php">
+                                <?php
+                                echo" <img src='../fotos/$imagem' id='psy'>";                               
+                                ?>
+                            </a>
+                        </div>                            
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
     <section class="content">
@@ -114,8 +134,8 @@ include "../config/conecta.php";
                             </div>
                             
                             <div class="posttext pull-left" id="menu">
-                               <p><strong>Usuário:</strong> <?=$nome;?></p>
-                                <h3><?=$pergunta;?></h3>
+                               <p><strong>Quem Perguntou:</strong> <?=$nome;?></p>
+                                <h3>Pergunta: <strong><?=$pergunta;?></strong></h3>
                                 <p><strong>Categoria:</strong> <?=$categoria;?></p>
                                 <p><strong>Data:</strong> <?=$data;?> </p>
                                <a href="resposta.php?id=<?=$id;?>" class="btn btn-success">
@@ -217,7 +237,7 @@ include "../config/conecta.php";
 
                 <div class="sidebarblock">
                     <?php 
-                    $sql = "select * from usuario";
+                     $sql = "select u.*, r.idUsuario, count(r.resposta) from usuario u join resposta r on (r.idUsuario = u.id) where r.idUsuario = u.id group by u.nome  and u.ativo = 'sim' order by r.idUsuario ASC";
                     $consulta = $pdo->prepare($sql);
                     $consulta->execute();
                     while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {

@@ -165,7 +165,7 @@ if ( $_POST ) {
 			//verificar se executou corretamente
 		if ( $consulta->execute() ) {
 
-			echo "<script>alert('Registro Salvo');location.href='../usuario/index.php';</script>";
+			echo "<script>alert('Registro Salvo');location.href='../usuario/home.php';</script>";
 
 		} else {
 

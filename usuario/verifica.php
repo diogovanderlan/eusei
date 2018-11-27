@@ -32,7 +32,7 @@
 			
 			//buscar o usuario com o login
 			$sql = "select * from usuario
-			where login = ? and ativo = 'Sim'
+			where login = ? and ativo = 'Sim' and tipo = 'usu'
 			limit 1";
 			//preparar consulta para ser executado
 			$consulta = $pdo->prepare($sql);

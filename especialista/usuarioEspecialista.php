@@ -32,6 +32,8 @@
 		$tipo = $dados->tipo;
 		$idcategoria = $dados->idcategoria;
 		$login = $dados->login;
+		$dataNasc = date('d/m/Y', strtotime($dataNasc));
+		$dataCad = date('d/m/Y', strtotime($dataCad));
 
 	}
 ?>

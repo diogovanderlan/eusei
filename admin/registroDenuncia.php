@@ -16,10 +16,7 @@ include "../config/conecta.php";
 <div class="well container">
 	<h1>Registros de Denuncias</h1>
 
-	<a href=" denPergunta.php" title="Cadastro de Denuncia" class="btn btn-success pull-right">
-		<i class="glyphicon glyphicon-file"></i>
-		Novo Cadastro
-	</a>
+	
 
 	<div class="clearfix"></div>
 
@@ -64,7 +61,9 @@ cadastros:</p>";
 	<thead>
 		<tr>
 			<td width="10%">ID</td>
+			<td>usuario</td>
 			<td>titulo</td>
+			
 			<td>Descrição</td>
 			<td>Pergunta</td>
 			<td>Usuário</td>
@@ -78,6 +77,7 @@ cadastros:</p>";
 
 				//separar os dados do banco de dados
 		$id = $dados->id;
+		$idUsuario = $dados->idUsuario;
 		$titulo = $dados->titulo;
 		$descricao = $dados->descricao;
 		$pergunta = $dados->pergunta;
@@ -88,13 +88,14 @@ cadastros:</p>";
 
 		echo "<tr>
 		<td>$id</td>
+		<td>$idUsuario</td>
 		<td>$titulo</td>
 		<td>$descricao</td>
 		<td>$pergunta</td>
 		<td>$nome</td>
 		<td>$data</td>
 		<td>
-		<a href='inicial.php?id=$id'
+		<a href='denunciaUsuario.php?id=$idUsuario'
 		class='btn btn-success'>
 		<i class='glyphicon glyphicon-ok'></i>
 		</a>

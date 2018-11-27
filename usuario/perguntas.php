@@ -2,79 +2,98 @@
 	//incluir o menu
 include "menuUsuario.php";
 
-
-if ( !isset( $_SESSION["usuario"]["id"] ) ) {
-		//direcionar para o index
-	header( "Location: index.php" );
-}
-
 	//incluir o arquivo para conectar no banco
 include "../config/conecta.php";
 
 ?>
 
 <div class="well container">
+	<h1>Listar Pergunta</h1>
+
+	
+
 	<div class="clearfix"></div>
-	<h1 style="color: #000">Suas Perguntas</h1>
 
-	<?php
+	<form name="formpesquisa" method="get"
+	class="form-inline text-center">
+	<label for="palavra">Palavra-chave:
+		<input type="text" name="palavra"
+		required placeholder="Digite uma palavra"
+		class="form-control">
+	</label>
+	<button type="submit" class="btn btn-success">
+		<i class="glyphicon glyphicon-search">
+		</i>
+	</button>
+</form>
 
-	$per = $_SESSION["usuario"]["id"];
+<?php
+
+$per = $_SESSION["usuario"]["id"];
+
+$palavra = "";
+if ( isset ( $_GET["palavra"] ) ) $palavra = trim ( $_GET["palavra"] );
+
+$palavra = "%$palavra%";
 
 			//buscar da pergunta
-	$sql = "select p.*, c.categoria, u.nome from pergunta p join categoria c on (c.id = p.idcategoria ) join usuario u on (u.id = p.idUsuario) where idUsuario = $per ";
-	$consulta = $pdo->prepare($sql);
-	$consulta->bindParam(1, $palavra);
+$sql = "select p.*, c.categoria, u.nome from pergunta p join categoria c on (c.id = p.idcategoria ) join usuario u on (u.id = p.idUsuario) where idUsuario = $per ";
+$consulta = $pdo->prepare($sql);
+$consulta->bindParam(1, $palavra);
 			//executar o sql
-	$consulta->execute();
-	while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-		$id = $dados->idPergunta;
-		$pergunta = $dados->pergunta;  
-		$nome = $dados->nome;
-		$data = $dados->data;
+$consulta->execute();
+
+			//conta as linhas de resultado
+$conta = $consulta->rowCount();
+
+echo "<p>Foram encontrados $conta 
+cadastros:</p>";
+
+?>
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<td width="10%">ID</td>
+			<td>Pergunta</td>
+			<td>Categoria</td>
+			<td>Data</td>
+			<td>Usuário</td>
+			<td width="30%">Opções</td>
+		</tr>
+	</thead>
+	<?php
+			//mostrar os resultados da busca
+	while ( $dados = $consulta->fetch( PDO::FETCH_OBJ ) ) {
+
+				//separar os dados do banco de dados
+		$idPergunta = $dados->idPergunta;
+		$pergunta = $dados->pergunta;
 		$categoria = $dados->categoria;
+		$data = $dados->data;
+		$nome = $dados->nome;
 
 		$data = date('d/m/Y', strtotime($data));
-		?>
-		<br>
-		<div class="post" style="background: #F2F2F2">
-			<div class="wrap-ut pull-left">
-				<div class="userinfo pull-left">
-				</div>
 
-				<a href='pergunta.php?idPergunta=$idPergunta'
-				class='btn btn-primary' style="float: right;">
-				<i class='glyphicon glyphicon-pencil'></i>
-			</a>
+		echo "<tr>
+		<td>$idPergunta</td>
+		<td>$pergunta</td>
+		<td>$categoria</td>
+		<td>$data</td>
+		<td>$nome</td>
+		<td>
+		<a href='pergunta.php?idPergunta=$idPergunta'
+		class='btn btn-primary'>Editar Pergunta
+		<i class='glyphicon glyphicon-pencil'></i>
+		</a>		
+		</td>
+		</tr>";
 
-			<div class="posttext pull-left" id="menu">
-				<p><strong>Usuário:</strong> <?=$nome;?></p>
-				<h3><?=$pergunta;?></h3>
-				<p><strong>Categoria:</strong> <?=$categoria;?></p>
-				<p><strong>Data:</strong> <?=$data;?> </p>
+	}
 
-				<a href="respostas.php?id=<?=$id;?>" class="btn btn-success">
-					Ver Respostas
-				</a>
-
-			</div>
-
-			<div class="clearfix"></div>
-		</div>
-		<div class="clearfix"></div>
-		</div><?php } ?>		
-	</main> 
+	?>
+</table>
 
 </div>
-<script type="text/javascript">
-		//funcao para perguntar se quer deletar
-		function deletar(id) {
-			if ( confirm("Deseja mesmo excluir?") ) {
-				//enviar o id para uma página
-				location.href = "excluirPergunta.php?id="+id;
-			}
-		}
-	</script>
-
 </body>
 </html>

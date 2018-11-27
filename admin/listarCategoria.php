@@ -42,7 +42,7 @@ $consulta->execute();
 			//conta as linhas de resultado
 $conta = $consulta->rowCount();
 
-echo "<p>Foram encontrados $conta
+echo "<p>Foram encontrados $conta 
 cadastros:</p>";
 
 ?>

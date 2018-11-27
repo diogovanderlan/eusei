@@ -37,7 +37,7 @@ include "../config/conecta.php";
                     <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2"></div>
                     <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
                         <div class="wrap">
-                         
+                           
                             <form name="formpesquisa" method="get" class="form-inline">
                                 <div class="pull-left txt">
                                     <label id="palavra">
@@ -120,14 +120,12 @@ include "../config/conecta.php";
         <section class="content">
             <br>
             <div class="container">
-               
+             
                 <div class="col-lg-8 col-md-8">
                     <!-- POST -->
                     <main>                                     
-                        <?php 
-
-                                            //$sql = "select * from pergunta order by data desc";
-                        $sql = "select p.idPergunta, p.pergunta, p.data, u.nome, c.categoria from pergunta p join categoria c on c.id = p.idcategoria join usuario u on u.id = p.idUsuario order by data desc";
+                        <?php
+                        $sql = "select p.idPergunta, p.pergunta, p.data, u.nome, u.tipo, u.ativo, c.categoria from pergunta p join categoria c on c.id = p.idcategoria join usuario u on u.id = p.idUsuario and u.ativo = 'sim' order by data desc ";
                         $consulta = $pdo->prepare($sql);
                         $consulta->execute(); 
 
@@ -147,11 +145,11 @@ include "../config/conecta.php";
                                     </div>
                                     
                                     <div class="posttext pull-left" id="menu">
-                                     <p><strong>Usuário:</strong> <?=$nome;?></p>
-                                     <h3><?=$pergunta;?></h3>
-                                     <p><strong>Categoria:</strong> <?=$categoria;?></p>
-                                     <p><strong>Data:</strong> <?=$data;?> </p>
-                                     <a href="resposta.php?id=<?=$id;?>" class="btn btn-success">
+                                       <p><strong>Quem Perguntou:</strong> <?=$nome;?></p>
+                                       <h3>Pergunta: <strong><?=$pergunta;?></strong></h3>
+                                       <p><strong>Categoria:</strong> <?=$categoria;?></p>
+                                       <p><strong>Data:</strong> <?=$data;?> </p>
+                                       <a href="resposta.php?id=<?=$id;?>" class="btn btn-success">
                                         Responder
                                     </a>
                                     <a href="respostas.php?id=<?=$id;?>" class="btn btn-success">
@@ -197,18 +195,18 @@ include "../config/conecta.php";
                     <div class="col-lg-4 col-md-4">
                         <!--Categorias -->
                         <div class="sidebarblock">
-                            <h3>Categorias</h3>
+                            <h3><strong>Categorias</strong></h3>
                             <?php 
                             $sql = "select * from categoria order by categoria";
                             $consulta = $pdo->prepare($sql);
                             $consulta->execute();
                             while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-                             $id = $dados->id;
-                             $categoria = $dados->categoria;
-                             ?>
+                               $id = $dados->id;
+                               $categoria = $dados->categoria;
+                               ?>
 
-                             
-                             <div class="blocktxt">
+                               
+                               <div class="blocktxt">
                                 <ul class="cats">
                                     <li><a href="home2.php?idcategoria=<?=$id;?>"><?=$categoria;?> 
                                     <span class="badge pull-right" id="nse"> 
@@ -246,27 +244,27 @@ include "../config/conecta.php";
                     <!-- Noticias-->
                     <div class="sidebarblock">
 
-                        <h3>Os Melhores Do Mês</h3>
+                        <h3><strong>Os Melhores Do Mês</strong></h3>
 
                         <div class="sidebarblock">
                             <?php 
-                            $sql = "select * from usuario";
+                            $sql = "select u.*, r.idUsuario, count(r.resposta) from usuario u join resposta r on (r.idUsuario = u.id) where r.idUsuario = u.id group by u.nome order by r.idUsuario";
                             $consulta = $pdo->prepare($sql);
                             $consulta->execute();
                             while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-                             $id = $dados->id;
-                             $nome = $dados->nome;
-                             ?>
-                             <div class="divline"></div>
-                             <div class="blocktxt">
+                               $id = $dados->id;
+                               $nome = $dados->nome;
+                               ?>
+                               <div class="divline"></div>  
+                               <div class="blocktxt">
                                 <ul class="cats">
                                     <li><a href="perfil2.php?id=<?=$id;?>"><?=$nome;?> <span class="badge pull-right" id="nse">
-                                     <div class="postinfo pull-left">
+                                       <div class="postinfo pull-left">
                                         <div class="comments">
                                             <div class="commentbg">
                                                 <?php
 
-                                                $sql = "select * from resposta where idUsuario = $id ";
+                                                $sql = "select * from resposta where idUsuario = $id";
                                                 
                                                 $cont = $pdo->prepare($sql);
                                                 

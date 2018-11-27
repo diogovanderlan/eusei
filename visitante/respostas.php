@@ -48,30 +48,17 @@ include "../config/conecta.php";
                 <div class="row">
                     <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2"></div>
                     <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
-                        <div class="wrap">
-
-                            <form action="formpesquisa" method="post" class="form">
-                                <div class="pull-left txt"><input type="text" class="form-control" placeholder="Buscar Pergunta"></div>
-                                <div class="pull-right"><button class="btn btn-default" type="button"><i class="fas fa-search"></i></button></div>
-                                <div class="clearfix"></div>
-                            </form>
-                        </div>
+                        
                     </div>
                     <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
                         <div class="stnt pull-left">                            
-                            <form action="pergunta.php" method="post" class="form">
+                            <form action="bVindo.php" method="post" class="form">
                                 <button class="btn btn-danger">Faça uma Pergunta</button>
                             </form>
                         </div>
-                        <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+                   
 
-                        <div class="avatar pull-left dropdown">
-                            <a data-toggle="dropdown" href="#"><img src="imagens/a.jpg" alt="" /></a> <b class="caret"></b>
-                            <ul class="dropdown-menu" role="menu">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="perfil.php">Meu Perfil</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-2" href="#">Caixa de Mensagem</a></li>
-                            </ul>
-                        </div>                            
+                        
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -107,18 +94,18 @@ include "../config/conecta.php";
                                 </div>
                                 
                                 <div class="posttext pull-left" id="menu">
-                                 <p>Nome: <?=$nome;?></p>
-                                 <h1><?=$pergunta;?></h1> 
-                                 <p>Categoria: <?=$categoria;?></p>
-                                 <p>Data: <?=$data;?></p>
+                                   <p>Nome: <?=$nome;?></p>
+                                   <h1><?=$pergunta;?></h1> 
+                                   <p>Categoria: <?=$categoria;?></p>
+                                   <p>Data: <?=$data;?></p>
 
-                             </div>             
+                               </div>             
 
-                             <div class="clearfix"></div>
+                               <div class="clearfix"></div>
 
 
-                         </div>                              
-                         <div class="postinfobot">
+                           </div>                              
+                           <div class="postinfobot">
 
                             <div class="clearfix"></div>
 
@@ -157,17 +144,39 @@ include "../config/conecta.php";
                                     <div class="posttext pull-left" id="menu">
                                         <p>Usuario: <?=$nome;?></p>
                                         <h3><?=$resposta;?></h3>
-                                        <p>Data: <?=$data;?></p> 
-
-                                                        <!--<input type="button" class="btn btn-success" name="escolha" value="Gostou">  
-
-                                                            <input type="button" class="btn btn-danger"  name="escolha" value="Não Gostou">-->                                                
+                                        <p>Data: <?=$data;?></p>                                                
                                                             
-                                                            <a href="curtir.php?id=<?=$idResposta;?>" class='btn btn-success' alt="curtir">Gostei</a> 
+                                                            <?php
+                                                            $sql = "select * from curtidas where idResposta = $idResposta";
 
-                                                            <a href="descurtir.php?id=<?=$idResposta;?>" class='btn btn-danger' alt="descurtir">Não Gostei</a>   
+                                                            $cont = $pdo->prepare($sql);
 
-                                                            <a href='denResposta.php?id=<?=$idResposta;?>' class='btn btn-warning'>Denunciar</a>  
+                                                        //executar o sql
+                                                            $cont->execute();
+
+                                                        //conta as linhas de resultado
+                                                            $conta = $cont->rowCount();
+
+                                                            ?>
+
+                                                            <a href="bVindo.php" class='btn btn-success' alt="curtir"> (<?=$conta;?>) Gostei</a>
+
+                                                            <?php
+                                                            $sql = "select * from curtidas where idResposta = $idResposta and curtida = 2";
+
+                                                            $cont = $pdo->prepare($sql);
+
+                                                        //executar o sql
+                                                            $cont->execute();
+
+                                                        //conta as linhas de resultado
+                                                            $conta = $cont->rowCount();
+
+                                                            ?>
+
+                                                            <a href="bVindo.php" class='btn btn-danger' alt="descurtir">(<?=$conta;?>) Não Gostei </a>    
+
+                                                            <a href='bVindo.php' class='btn btn-warning'>Denunciar</a>  
 
                                                             
                                                         </div>             
@@ -189,138 +198,138 @@ include "../config/conecta.php";
                                     
 
 
-                                                <br><br><br>
-                                                <div class="col-lg-4 col-md-4">
-                                                    <!--Categorias -->
-                                                    <div class="sidebarblock">
-                                                        <h3>Categorias</h3>
-                                                        <?php 
-                                                        $sql = "select * from categoria order by categoria";
-                                                        $consulta = $pdo->prepare($sql);
-                                                        $consulta->execute();
-                                                        while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-                                                           $id = $dados->id;
-                                                           $categoria = $dados->categoria;
-                                                           ?>
+                                    <br><br><br>
+                                    <div class="col-lg-4 col-md-4">
+                                        <!--Categorias -->
+                                        <div class="sidebarblock">
+                                            <h3>Categorias</h3>
+                                            <?php 
+                                            $sql = "select * from categoria order by categoria";
+                                            $consulta = $pdo->prepare($sql);
+                                            $consulta->execute();
+                                            while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
+                                             $id = $dados->id;
+                                             $categoria = $dados->categoria;
+                                             ?>
 
 
-                                                           <div class="blocktxt">
-                                                            <ul class="cats">
-                                                                <li><a href="home2.php?idcategoria=<?=$id;?>"><?=$categoria;?> 
-                                                                <span class="badge pull-right" id="nse"> 
-                                                                    <div class="postinfo pull-left">
-                                                                        <div class="comments">
-                                                                            <div class="commentbg">
-                                                                                <?php
+                                             <div class="blocktxt">
+                                                <ul class="cats">
+                                                    <li><a href="home2.php?idcategoria=<?=$id;?>"><?=$categoria;?> 
+                                                    <span class="badge pull-right" id="nse"> 
+                                                        <div class="postinfo pull-left">
+                                                            <div class="comments">
+                                                                <div class="commentbg">
+                                                                    <?php
 
-                                                                                $sql = "select * from pergunta where idcategoria = $id  ";
+                                                                    $sql = "select * from pergunta where idcategoria = $id  ";
 
-                                                                                $cont = $pdo->prepare($sql);
+                                                                    $cont = $pdo->prepare($sql);
 
                                                         //executar o sql
-                                                                                $cont->execute();
+                                                                    $cont->execute();
 
                                                         //conta as linhas de resultado
-                                                                                $conta = $cont->rowCount();
+                                                                    $conta = $cont->rowCount();
 
-                                                                                echo "<p> $conta </p>";
+                                                                    echo "<p> $conta </p>";
 
-                                                                                ?>
-                                                                                <div class="mark"></div>
-                                                                            </div>                                            
-                                                                        </div>                                                                           
-                                                                    </div>
-                                                                    <div class="clearfix"></div>
-                                                                </span></a></li>
-
-
-                                                            </ul>
+                                                                    ?>
+                                                                    <div class="mark"></div>
+                                                                </div>                                            
+                                                            </div>                                                                           
                                                         </div>
-                                                    <?php } ?>
-                                                </div>                        
+                                                        <div class="clearfix"></div>
+                                                    </span></a></li>
 
-                                                <!-- Noticias-->
-                                                <div class="sidebarblock">
 
-                                                    <h3>Os Melhores Do Mês</h3>
+                                                </ul>
+                                            </div>
+                                        <?php } ?>
+                                    </div>                        
 
-                                                    <div class="sidebarblock">
-                                                        <?php 
-                                                        $sql = "select * from usuario";
-                                                        $consulta = $pdo->prepare($sql);
-                                                        $consulta->execute();
-                                                        while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
-                                                           $id = $dados->id;
-                                                           $nome = $dados->nome;
-                                                           ?>
-                                                           <div class="divline"></div>
-                                                           <div class="blocktxt">
-                                                            <ul class="cats">
-                                                                <li><a href="perfil2.php?id=<?=$id;?>"><?=$nome;?> <span class="badge pull-right"  id="nse">
-                                                                   <div class="postinfo pull-left">
-                                                                    <div class="comments">
-                                                                        <div class="commentbg">
-                                                                            <?php
+                                    <!-- Noticias-->
+                                    <div class="sidebarblock">
 
-                                                                            $sql = "select * from resposta where idusuario = $id  ";
+                                        <h3>Os Melhores Do Mês</h3>
 
-                                                                            $cont = $pdo->prepare($sql);
+                                        <div class="sidebarblock">
+                                            <?php 
+                                            $sql = "select * from usuario";
+                                            $consulta = $pdo->prepare($sql);
+                                            $consulta->execute();
+                                            while ( $dados = $consulta->fetch(PDO::FETCH_OBJ) ) {
+                                             $id = $dados->id;
+                                             $nome = $dados->nome;
+                                             ?>
+                                             <div class="divline"></div>
+                                             <div class="blocktxt">
+                                                <ul class="cats">
+                                                    <li><a href="perfil2.php?id=<?=$id;?>"><?=$nome;?> <span class="badge pull-right"  id="nse">
+                                                     <div class="postinfo pull-left">
+                                                        <div class="comments">
+                                                            <div class="commentbg">
+                                                                <?php
+
+                                                                $sql = "select * from resposta where idusuario = $id  ";
+
+                                                                $cont = $pdo->prepare($sql);
 
                                                         //executar o sql
-                                                                            $cont->execute();
+                                                                $cont->execute();
 
                                                         //conta as linhas de resultado
-                                                                            $conta = $cont->rowCount();
+                                                                $conta = $cont->rowCount();
 
-                                                                            echo "<p> $conta Pts </p>";
+                                                                echo "<p> $conta Pts </p>";
 
-                                                                            ?>
-                                                                            <div class="mark"></div>
-                                                                        </div>                                            
-                                                                    </div>                                                                           
-                                                                </div>
-                                                                <div class="clearfix"></div>
-                                                            </span></a></li>
-
-
-                                                        </ul>
+                                                                ?>
+                                                                <div class="mark"></div>
+                                                            </div>                                            
+                                                        </div>                                                                           
                                                     </div>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                    <div class="clearfix"></div>
+                                                </span></a></li>
 
 
-                            </section>
-                            <footer>
-                                <div class="container">
-                                    <div class="row">                      
-                                        <div class="col-lg-8 col-xs-9 col-sm-5" style="text-align: center;">Copyrights 2018, eusei.com.br</div>
-                                        <div class="col-lg-3 col-xs-12 col-sm-5 sociconcent">
-                                            <ul class="socialicons">
-                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-cloud"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-rss"></i></a></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    <?php } ?>
                                 </div>
-                            </footer>
+                            </div>
                         </div>
-
-                        <!-- get jQuery from the google apis -->
-                        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
+                    </div>
 
 
-                        <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
-                        <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
-                        <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+                </section>
+                <footer>
+                    <div class="container">
+                        <div class="row">                      
+                            <div class="col-lg-8 col-xs-9 col-sm-5" style="text-align: center;">Copyrights 2018, eusei.com.br</div>
+                            <div class="col-lg-3 col-xs-12 col-sm-5 sociconcent">
+                                <ul class="socialicons">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-cloud"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
 
-                        <script src="js/bootstrap.min.js"></script>
+            <!-- get jQuery from the google apis -->
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
 
-                    </body>
-                    </html>
+
+            <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+            <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+            <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+            <script src="js/bootstrap.min.js"></script>
+
+        </body>
+        </html>

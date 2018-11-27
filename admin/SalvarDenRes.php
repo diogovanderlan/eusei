@@ -36,7 +36,7 @@ if ( $_POST ) {
     } 
 
     if ($consulta->execute() ) {
-     echo "<script>alert('Denuncia Registrada!');location.href='registroDenRes.php';</script>";
+     echo "<script>alert('Denuncia Registrada!');location.href='registroDenuncia.php';</script>";
  } else {
     echo "<script>alert('Erro ao Denunciar');history.back();</script>";
 }

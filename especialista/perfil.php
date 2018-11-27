@@ -40,7 +40,7 @@ include "../config/conecta.php";
 			<p>Login: <?=$login;?></p>	
 			<?php 
 			echo "
-			<a href='usuario.php?id=$id'
+			<a href='usuarioEspecialista.php?id=$id'
 			class='btn btn-primary'>
 			<i class='glyphicon glyphicon-pencil'></i>
 			Editar Perfil

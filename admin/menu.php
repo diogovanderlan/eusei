@@ -1,13 +1,13 @@
 <?php
-	//iniciar a sessao
+  //iniciar a sessao
 session_start();
 
 if ( !isset( $_SESSION["admin"]["id"] ) ) {
-		//direcionar para o index
+    //direcionar para o index
   header( "Location: index.php" );
 }
 
-	//incluir o arquivo para conectar no banco
+  //incluir o arquivo para conectar no banco
 include "../config/conecta.php";
 
   //funcao para formatar datas 
@@ -21,8 +21,8 @@ function formatardata($data) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Eu sei</title>
-	<meta charset="utf-8">
+  <title>Eu sei</title>
+  <meta charset="utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -51,7 +51,7 @@ function formatardata($data) {
   <script defer src="../css/font/all.js"></script>
 
   <script>
-  	$(function () {
+    $(function () {
       //validação dos campos
       $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); 
     } );
@@ -100,7 +100,10 @@ function formatardata($data) {
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sala <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
-              <a href="perguntas.php">Suas Perguntas</a>
+              <a href="perguntas.php">Minhas Perguntas</a>
+            </li>
+            <li>
+              <a href="mRespostas.php">Minhas Respostas</a>
             </li>
             
             

@@ -32,21 +32,6 @@ include "../config/conecta.php";
                     <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2"></div>
                     <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
                         <div class="wrap">
-                         
-                            <form name="formpesquisa" method="get" class="form-inline">
-                                <div class="pull-left txt">
-                                    <label id="palavra">
-                                        <input type="text" class="form-control" name="palavra" placeholder="Buscar Pergunta">
-                                    </div>
-                                    <div class="pull-right">
-                                        <button class="btn btn-success" type="submit">
-                                            <i class="fas fa-search">    
-                                            </i>
-                                        </button>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </form>
-
                                 <?php
                                 $palavra = "";
                                 if ( isset ( $_GET["palavra"] ) ) $palavra = trim ( $_GET["palavra"] );
@@ -70,11 +55,10 @@ include "../config/conecta.php";
                         </div>
                         <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
                             <div class="stnt pull-left">                            
-                                <form action="pergunta.php" method="post" class="form">
+                                <form action="bVindo.php" method="post" class="form">
                                     <button class="btn btn-danger">Faça uma Pergunta</button>
                                 </form>
-                            </div>
-                            <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+                            </div>                           
 
                           <div class="avatar pull-left dropdown">
                         </div>                            
@@ -119,13 +103,13 @@ include "../config/conecta.php";
                                      <h3><?=$pergunta;?></h3>
                                      <p><strong>Categoria:</strong> <?=$categoria;?></p>
                                      <p><strong>Data:</strong> <?=$data;?> </p>
-                                     <a href="resposta.php?id=<?=$id;?>" class="btn btn-success">
+                                     <a href="bVindo.php" class="btn btn-success">
                                         Responder
                                     </a>
                                     <a href="respostas.php?id=<?=$id;?>" class="btn btn-success">
                                         Ver Respostas
                                     </a>
-                                    <a href="denPergunta.php?id=<?=$id;?>" class="btn btn-warning">
+                                    <a href="bVindo.php" class="btn btn-warning">
                                         Denunciar
                                     </a>
                                 </div>

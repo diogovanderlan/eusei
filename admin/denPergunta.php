@@ -94,8 +94,8 @@ $data = date("d/m/Y");
                             </div>
 
                             <div class="posttext pull-left" id="menu">
-                                <p><strong>Usuário:</strong> <?=$nome;?></p>
-                                <h3><?=$pergunta;?></h3>
+                                <p><strong>Quem Perguntou: </strong> <?=$nome;?></p>
+                                <h3>Pergunta: <strong><?=$pergunta;?></strong></h3>
                                 <p><strong>Categoria:</strong> <?=$categoria;?></p>
                                 <p><strong>Data:</strong> <?=$data;?> </p>
                             </div>
